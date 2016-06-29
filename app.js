@@ -6,6 +6,7 @@ var path          = require('path');
 var logger        = require('morgan');
 var bodyParser    = require('body-parser');
 var upload        = require('./routes/upload');
+var root          = require('./routes/root');
 var helmet        = require('helmet');
 
 var app = express();
@@ -17,8 +18,9 @@ if(process.env.NODE_ENV !== 'test'){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+app.use('/', root);
 app.use('/upload', upload);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

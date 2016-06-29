@@ -1,6 +1,7 @@
 {
-  "name": "upload-server",
-  "version": "0.0.0",
+  "name": "soda-upload-server",
+  "version": "0.1.0",
+  "description": "Soda upload server",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
