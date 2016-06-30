@@ -37,7 +37,6 @@ exports.upload = (req, res, next) => {
     } else if (!req.body.interactionId || typeof req.file === 'undefined') {
       return next(new Errors.NotAcceptable('missing_fields', 'Required field(s) missing'));
     }
-    console.log(req.file);
     res.status(201).send({key: req.file.key});
   });
 };
