@@ -10,7 +10,7 @@ var s3Storage = multerS3({
   bucket: process.env.AWS_BUCKET_NAME,
   contentType: multerS3.AUTO_CONTENT_TYPE,
   key: function (req, file, cb) {
-    cb(null, req.body.interactionId + '/' + file.originalname);
+    cb(null, req.body.id + '/' + file.originalname);
   }
 });
 
@@ -34,8 +34,8 @@ exports.upload = (req, res, next) => {
 
     if (err) {
       return next(new Errors.NotAcceptable(err.code, err.message));
-    } else if (!req.body.interactionId) {
-      return next(new Errors.NotAcceptable('missing_fields', 'interactionId is missing.'));
+    } else if (!req.body.id || typeof req.file === 'undefined') {
+      return next(new Errors.NotAcceptable('missing_fields', 'Required field(s) missing'));
     }
 
     res.status(201).send({key: req.file.key});
