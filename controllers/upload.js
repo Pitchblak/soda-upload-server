@@ -17,14 +17,14 @@ var s3Storage = multerS3({
 var upload = multer({
   storage: s3Storage,
   limits: {
-    fileSize: 5242880
+    fileSize: process.env.MAX_FILE_SIZE
   },
   fileFilter: function(req, file, cb) {
     var allowableMimeTypes = ['image/jpeg', 'image/png', 'audio/mp4', 'audio/x-m4a'];
     if (allowableMimeTypes.indexOf(file.mimetype) > -1) {
       cb(null, true);
     } else {
-      cb(new Errors.NotAcceptable('disallowed_mime_type', file.mimetype + ' is not allowed.'));
+      cb(new Errors.NotAcceptable('disallowed_mime_type', file.mimetype + ' is not allowed'));
     }
   }
 }).single('media');
@@ -37,7 +37,6 @@ exports.upload = (req, res, next) => {
     } else if (!req.body.id || typeof req.file === 'undefined') {
       return next(new Errors.NotAcceptable('missing_fields', 'Required field(s) missing'));
     }
-
     res.status(201).send({key: req.file.key});
   });
 };
