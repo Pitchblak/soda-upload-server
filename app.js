@@ -16,7 +16,6 @@ app.use(helmet());
 if(process.env.NODE_ENV !== 'test'){
   app.use(logger('dev'));
 }
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', root);
