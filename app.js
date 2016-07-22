@@ -8,6 +8,7 @@ var bodyParser    = require('body-parser');
 var upload        = require('./routes/upload');
 var root          = require('./routes/root');
 var helmet        = require('helmet');
+var authenticate  = require('./helpers/auth');
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', root);
+app.use(authenticate);
 app.use('/upload', upload);
 
 
