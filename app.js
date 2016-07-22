@@ -9,7 +9,7 @@ var upload        = require('./routes/upload');
 var root          = require('./routes/root');
 var helmet        = require('helmet');
 var authenticate  = require('./helpers/auth');
-var ApiError      = require('./errors');
+var ApiError      = require('./errors')
 
 var app = express();
 
@@ -23,7 +23,9 @@ app.use('/', root)
 app.use(function(req, res, next) {
   var contype = req.headers['content-type'];
   if (!contype || contype.indexOf('multipart/form-data') !== 0)
-  next(new ApiError.NotAcceptable('wrong_format', 'Format should be multipart/form-data'));
+    next();
+  else
+    next(new ApiError.NotAcceptable('wrong_format', 'Format should be multipart/form-data'));
 });
 app.use(authenticate);
 app.use('/upload', upload);
