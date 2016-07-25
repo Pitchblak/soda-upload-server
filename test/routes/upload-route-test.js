@@ -7,28 +7,26 @@ var config              = require('../config');
 
 describe('Testing upload server:', function() {
   
-  before(function(done) {
-    done();
-  });
-  
   describe('POST /upload', function() {
+    
     var successPayload = {
-      key: 'testinteractionId/4point8mb.m4a'
-    }
+      key: 'testinteractionId/test-image.png'
+    };
+    
     it('should return 201 if successful', function(done) {
       request(app)
         .post('/upload')
         .set(config.defaultHeaders)
-        .field('interactionId', 'testinteractionId')
-        .attach('media', './test/assets/4point8mb.m4a')
+        .field('id', 'testinteractionId')
+        .attach('media', './test/assets/test-image.png')
         .expect(201, successPayload, done);
     });
 
-    it('should return 400 if interactionId missing', function(done) {
+    it('should return 400 if id missing', function(done) {
       request(app)
         .post('/upload')
         .set(config.defaultHeaders)
-        .attach('media', './test/assets/4point8mb.m4a')
+        .attach('media', './test/assets/test-image.png')
         .expect(400, done);
     });
   
@@ -48,6 +46,7 @@ describe('Testing upload server:', function() {
         .attach('media', './test/assets/7point1mb.m4a')
         .expect(400, done);
     });
+    
   });
   
 });

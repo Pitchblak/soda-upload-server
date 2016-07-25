@@ -19,7 +19,7 @@ if(process.env.NODE_ENV !== 'test'){
 }
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', root)
+app.use('/', root);
 app.use(function(req, res, next) {
   var contype = req.headers['content-type'];
   if (!contype || contype.indexOf('multipart/form-data') !== 0)
@@ -46,7 +46,6 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'local') {
   app.use(function(err, req, res, next) {
-    console.log(err.stack);
     res.status(err.status || 500).send({
       name: err.name || 'InternalServerError',
       message: err.message || 'Internal Server Error',
@@ -59,7 +58,6 @@ if (app.get('env') === 'local') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  console.log(err.stack);
   res.status(err.status || 500).send({
     name: err.name || 'InternalServerError',
     message: err.message || 'Internal Server Error',
